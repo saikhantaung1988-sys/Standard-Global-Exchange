@@ -1236,41 +1236,12 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/core.js"></script>
+<script src="assets/js/balance.js"></script>
 
 <script>
-    checkAccess(); // Login စစ်မယ်
-
-    async function loadAssets() {
-        const { data: { user } } = await db.auth.getUser();
-        if (user) {
-            // Assets Table မှ ပိုက်ဆံယူမယ်
-            const { data: asset } = await db.from('assets').select('*').eq('user_id', user.id).single();
-            if (asset) {
-                // HTML ID: asset-amount (ကိုယ့် HTML ထဲကအတိုင်း ပြင်ပါ)
-                const amountEl = document.getElementById('asset-amount');
-                if (amountEl) amountEl.innerText = asset.amount + " " + asset.currency;
-            }
-        }
-    }
-    loadAssets();
+    // Login မဝင်ထားရင် Login စာမျက်နှာကို ပြန်ပို့မယ်
+    checkAccess();
 </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', async () => {
-        // Login စစ်မယ်
-        const { data: { user } } = await db.auth.getUser();
-
-        if (user) {
-           
-
-            // ၂။ ပိုက်ဆံ ဆွဲထည့်မယ်
-            const { data: asset } = await db.from('assets').select('amount').eq('user_id', user.id).single();
-            if (asset) {
-                document.getElementById('user-balance').innerText = "$" + asset.amount;
-            }
-        }
-    });
-</script>
-    
 </body>
 </html>
