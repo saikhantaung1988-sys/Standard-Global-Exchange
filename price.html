@@ -485,19 +485,6 @@
 <script>
     checkAccess(); // Login စစ်မယ်
 
-    async function loadAssets() {
-        const { data: { user } } = await db.auth.getUser();
-        if (user) {
-            // Assets Table မှ ပိုက်ဆံယူမယ်
-            const { data: asset } = await db.from('assets').select('*').eq('user_id', user.id).single();
-            if (asset) {
-                // HTML ID: asset-amount (ကိုယ့် HTML ထဲကအတိုင်း ပြင်ပါ)
-                const amountEl = document.getElementById('asset-amount');
-                if (amountEl) amountEl.innerText = asset.amount + " " + asset.currency;
-            }
-        }
-    }
-    loadAssets();
 </script>
 
 </body>
