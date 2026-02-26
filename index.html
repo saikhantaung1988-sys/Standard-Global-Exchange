@@ -2085,42 +2085,8 @@
 <script src="assets/js/core.js"></script>
 
 <script>
-  (async () => {
-    // db ရှိမရှိ စစ် (မရှိရင် core.js ကိုစစ်)
-    if (typeof db === "undefined") {
-      console.error("db is not defined. Check core.js loading / variable name.");
-      return;
-    }
-
-    // checkAccess က async ဖြစ်နိုင်လို့ await လုပ်
-    const r = checkAccess();
-    if (r instanceof Promise) await r;
-
-    // dashboard load
-    await loadDashboard();
-  })();
-
-  async function loadDashboard() {
-    const { data, error } = await db.auth.getUser();
-    if (error) { console.error("getUser error:", error); return; }
-
-    const user = data?.user;
-    if (!user) return;
-
-    const { data: profile, error: pErr } = await db
-      .from('profiles').select('*').eq('id', user.id).single();
-    if (pErr) console.error("profile error:", pErr);
-
-    const { data: asset, error: aErr } = await db
-      .from('assets').select('*').eq('user_id', user.id).single();
-    if (aErr) console.error("asset error:", aErr);
-
-    const uidEl = document.getElementById('header-uid');
-    if (uidEl && profile?.uid) uidEl.innerText = "UID: " + profile.uid;
-
-    const balanceEl = document.getElementById('user-balance');
-    if (balanceEl && asset?.amount != null) balanceEl.innerText = asset.amount;
-  }
+    // Login မဝင်ထားရင် Login စာမျက်နှာကို ပြန်ပို့မယ်
+    checkAccess();
 </script>
 
     </body>
