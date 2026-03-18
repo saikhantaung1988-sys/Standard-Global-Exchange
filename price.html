@@ -22,7 +22,354 @@
     <link rel="stylesheet" href="assets/css/vendor/font-awesome.css">
     <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/app.css">
+<style>
+    :root{
+      --bg:#07111f;
+      --bg-2:#09182a;
+      --card:#101c31;
+      --card-2:#0d1729;
+      --line:rgba(255,255,255,.08);
+      --text:#edf3ff;
+      --muted:#8ea3c7;
+      --green:#19c37d;
+      --red:#ff4d5e;
+      --chip:#17243a;
+      --shadow:0 20px 60px rgba(0,0,0,.30);
+      --radius:18px;
+    }
 
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 500px at 0% -10%, rgba(54,94,190,.16), transparent 50%),
+        radial-gradient(900px 500px at 100% 0%, rgba(0,255,200,.08), transparent 40%),
+        linear-gradient(180deg, #07111f 0%, #06101c 100%);
+      min-height:100vh;
+    }
+
+    .page{
+      width:min(1180px, calc(100% - 24px));
+      margin:0 auto;
+      padding:20px 0 28px;
+    }
+
+    .shell{
+      border:1px solid rgba(255,255,255,.06);
+      background:linear-gradient(180deg, rgba(8,18,34,.92), rgba(5,13,25,.96));
+      box-shadow:var(--shadow);
+      border-radius:24px;
+      overflow:hidden;
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:18px 18px 14px;
+      border-bottom:1px solid rgba(255,255,255,.05);
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .brand-mark{
+      width:28px;height:28px;border-radius:8px;
+      display:grid;place-items:center;
+      background:linear-gradient(135deg, #53d769, #f8df3c);
+      color:#09111f;font-weight:900;font-size:13px;
+      box-shadow:0 6px 18px rgba(83,215,105,.22);
+    }
+
+    .brand-text{
+      display:flex;align-items:center;gap:0;
+      font-weight:800;font-size:15px;letter-spacing:.2px;
+    }
+    .brand-text span:last-child{opacity:.7;font-weight:500}
+
+    .top-actions{
+      display:flex;align-items:center;gap:10px;
+    }
+
+    .icon-btn{
+      width:38px;height:38px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      display:grid;place-items:center;
+      color:#dfe8fb;
+    }
+
+    .content{
+      padding:18px;
+    }
+
+    .header-row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:16px;
+      flex-wrap:wrap;
+    }
+
+    .headline h1{
+      margin:0;
+      font-size:24px;
+      line-height:1.05;
+      letter-spacing:-.03em;
+      font-weight:800;
+    }
+
+    .headline p{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:13px;
+      max-width:520px;
+      line-height:1.45;
+    }
+
+    .tabs{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .tab{
+      min-width:64px;
+      height:42px;
+      padding:0 16px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.08);
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      color:#dfe8fb;
+      font-size:14px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .tab.active{
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.05), 0 10px 20px rgba(0,0,0,.18);
+    }
+
+    .market-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:14px;
+    }
+
+    .coin-card{
+      position:relative;
+      overflow:hidden;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.07);
+      background:
+        radial-gradient(120% 120% at 100% 0%, rgba(55,86,170,.20), transparent 35%),
+        linear-gradient(180deg, #111d31 0%, #0d1729 100%);
+      padding:14px;
+      min-height:158px;
+      box-shadow:0 12px 30px rgba(0,0,0,.20);
+    }
+
+    .coin-card::before{
+      content:"";
+      position:absolute;
+      inset:auto -30px -40px auto;
+      width:120px;height:120px;
+      background:radial-gradient(circle, rgba(255,255,255,.06), transparent 70%);
+      pointer-events:none;
+    }
+
+    .coin-top{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:12px;
+      align-items:start;
+      margin-bottom:12px;
+    }
+
+    .coin-left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .coin-icon-wrap{
+      width:42px;height:42px;border-radius:50%;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.05);
+      display:grid;place-items:center;
+      flex:0 0 auto;
+      overflow:hidden;
+    }
+
+    .coin-icon-wrap img{
+      width:28px;height:28px;object-fit:contain;
+      display:block;
+    }
+
+    .coin-meta{
+      min-width:0;
+    }
+
+    .coin-name{
+      margin:0;
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:-.01em;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .coin-symbol{
+      margin-top:4px;
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:.02em;
+    }
+
+    .price-wrap{
+      text-align:right;
+      min-width:120px;
+    }
+
+    .coin-price{
+      margin:0;
+      font-size:19px;
+      font-weight:800;
+      letter-spacing:-.03em;
+      line-height:1.05;
+    }
+
+    .coin-change{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      min-width:74px;
+      height:30px;
+      padding:0 10px;
+      margin-top:8px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .coin-change.up{
+      background:rgba(25,195,125,.16);
+      color:#7ef0bb;
+      border:1px solid rgba(25,195,125,.18);
+    }
+
+    .coin-change.down{
+      background:rgba(255,77,94,.16);
+      color:#ff9eaa;
+      border:1px solid rgba(255,77,94,.18);
+    }
+
+    .chart-row{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:12px;
+      align-items:end;
+      margin-top:6px;
+    }
+
+    .chart-box{
+      height:64px;
+      min-width:0;
+      border-radius:14px;
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      border:1px solid rgba(255,255,255,.04);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .chart-box canvas{
+      display:block;
+    }
+
+    .mini-stats{
+      display:grid;
+      gap:8px;
+      min-width:92px;
+    }
+
+    .stat{
+      border-radius:12px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.05);
+      padding:8px 10px;
+      text-align:right;
+    }
+
+    .stat-label{
+      display:block;
+      font-size:10px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.10em;
+    }
+
+    .stat-value{
+      display:block;
+      margin-top:5px;
+      font-size:12px;
+      font-weight:800;
+      color:#f1f5ff;
+    }
+
+    .loading, .error{
+      grid-column:1/-1;
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .flash-up{ animation:flashUp .5s ease; }
+    .flash-down{ animation:flashDown .5s ease; }
+
+    @keyframes flashUp{
+      0%{transform:translateY(0); text-shadow:0 0 0 rgba(25,195,125,0)}
+      50%{transform:translateY(-1px); text-shadow:0 0 16px rgba(25,195,125,.55)}
+      100%{transform:translateY(0); text-shadow:0 0 0 rgba(25,195,125,0)}
+    }
+    @keyframes flashDown{
+      0%{transform:translateY(0); text-shadow:0 0 0 rgba(255,77,94,0)}
+      50%{transform:translateY(-1px); text-shadow:0 0 16px rgba(255,77,94,.55)}
+      100%{transform:translateY(0); text-shadow:0 0 0 rgba(255,77,94,0)}
+    }
+
+    @media (max-width: 900px){
+      .market-grid{ grid-template-columns:1fr; }
+    }
+
+    @media (max-width: 560px){
+      .page{ width:min(100%, calc(100% - 10px)); padding:4px 0 14px; }
+      .content{ padding:14px; }
+      .topbar{ padding:14px 14px 12px; }
+      .headline h1{ font-size:22px; }
+      .coin-card{ min-height:148px; padding:12px; }
+      .chart-row{ grid-template-columns:1fr 86px; gap:10px; }
+      .chart-box{ height:58px; }
+      .coin-price{ font-size:17px; }
+      .coin-change{ min-width:68px; height:28px; font-size:11px; }
+      .tab{ min-width:60px; height:40px; padding:0 14px; }
+    }
+  </style>
 </head>
 
 <body>
@@ -451,7 +798,45 @@
     </nav>
   </div>
 </header>
-      
+      <body>
+  <div class="page">
+    <div class="shell">
+      <div class="topbar">
+        <div class="brand">
+          <div class="brand-mark">≡</div>
+          <div class="brand-text"><span>SGX</span><span>Group</span></div>
+        </div>
+
+        <div class="top-actions">
+          <button class="icon-btn" aria-label="Support">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M4 12a8 8 0 0 1 16 0v6a2 2 0 0 1-2 2h-1v-8h1a6 6 0 1 0-12 0h1v8H6a2 2 0 0 1-2-2v-6Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 20h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="header-row">
+          <div class="headline">
+            <h1>Markets</h1>
+            <p>Compact premium market cards with live price, 24h move and mini trend chart.</p>
+          </div>
+
+          <div class="tabs" id="rangeTabs">
+            <button class="tab active" data-interval="15m" data-limit="48">12H</button>
+            <button class="tab" data-interval="1h" data-limit="24">24H</button>
+            <button class="tab" data-interval="4h" data-limit="42">7D</button>
+          </div>
+        </div>
+
+        <div class="market-grid" id="marketGrid">
+          <div class="loading">Loading premium market cards...</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
     </div>
     <!-- Main Wrapper End -->
@@ -495,7 +880,7 @@
     <script src="assets/js/vendor/bootstrap.min.js"></script>
     <script src="assets/js/vendor/slick.min.js"></script>
  <script src="assets/js/app.js"></script>
-
+ <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/core.js"></script>
 
@@ -503,6 +888,314 @@
     checkAccess(); // Login စစ်မယ်
 
 </script>
+
+<script>
+    const COINS = [
+      { symbol: 'BTCUSDT', code: 'btc', name: 'Bitcoin' },
+      { symbol: 'ETHUSDT', code: 'eth', name: 'Ethereum' },
+      { symbol: 'SOLUSDT', code: 'sol', name: 'Solana' },
+      { symbol: 'BNBUSDT', code: 'bnb', name: 'BNB' },
+      { symbol: 'XRPUSDT', code: 'xrp', name: 'XRP' },
+      { symbol: 'ADAUSDT', code: 'ada', name: 'Cardano' }
+    ];
+
+    const API_BASE = 'https://data-api.binance.vision';
+    const WS_BASE  = 'wss://data-stream.binance.vision/stream';
+
+    let currentInterval = '15m';
+    let currentLimit = 48;
+
+    const grid = document.getElementById('marketGrid');
+    const chartRefs = new Map();
+    const priceRefs = new Map();
+
+    function iconUrl(code){
+      return `https://cdn.jsdelivr.net/npm/cryptocurrency-icons/svg/color/${code}.svg`;
+    }
+
+    function fmtPrice(v){
+      const n = Number(v);
+      if (!isFinite(n)) return '--';
+      if (n >= 1000) return '$' + n.toLocaleString(undefined,{maximumFractionDigits:2});
+      if (n >= 1) return '$' + n.toLocaleString(undefined,{maximumFractionDigits:4});
+      return '$' + n.toLocaleString(undefined,{maximumFractionDigits:6});
+    }
+
+    function fmtPct(v){
+      const n = Number(v);
+      if (!isFinite(n)) return '--';
+      return `${n >= 0 ? '+' : ''}${n.toFixed(2)}%`;
+    }
+
+    function fmtCompact(v){
+      const n = Number(v);
+      if (!isFinite(n)) return '--';
+      return new Intl.NumberFormat('en', {
+        notation: 'compact',
+        maximumFractionDigits: 2
+      }).format(n);
+    }
+
+    function cardTemplate(coin){
+      return `
+        <article class="coin-card" id="card-${coin.symbol}">
+          <div class="coin-top">
+            <div class="coin-left">
+              <div class="coin-icon-wrap">
+                <img
+                  src="${iconUrl(coin.code)}"
+                  alt="${coin.name}"
+                  loading="lazy"
+                  onerror="this.style.display='none'; this.parentNode.textContent='${coin.code.toUpperCase()}'"
+                />
+              </div>
+
+              <div class="coin-meta">
+                <p class="coin-name">${coin.name}</p>
+                <div class="coin-symbol">${coin.symbol.replace('USDT','')}</div>
+              </div>
+            </div>
+
+            <div class="price-wrap">
+              <p class="coin-price" id="price-${coin.symbol}">--</p>
+              <div class="coin-change up" id="change-${coin.symbol}">--</div>
+            </div>
+          </div>
+
+          <div class="chart-row">
+            <div class="chart-box" id="chart-${coin.symbol}"></div>
+
+            <div class="mini-stats">
+              <div class="stat">
+                <span class="stat-label">Pair</span>
+                <span class="stat-value">${coin.symbol}</span>
+              </div>
+              <div class="stat">
+                <span class="stat-label">24h Vol</span>
+                <span class="stat-value" id="volume-${coin.symbol}">--</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    async function getJSON(url){
+      const res = await fetch(url);
+      if(!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    }
+
+    async function getTicker(symbol){
+      return getJSON(`${API_BASE}/api/v3/ticker/24hr?symbol=${symbol}`);
+    }
+
+    async function getKlines(symbol, interval, limit){
+      return getJSON(`${API_BASE}/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`);
+    }
+
+    function setPrice(symbol, nextPrice){
+      const el = document.getElementById(`price-${symbol}`);
+      const prev = priceRefs.get(symbol);
+      const next = Number(nextPrice);
+
+      el.textContent = fmtPrice(next);
+
+      if (typeof prev === 'number') {
+        el.classList.remove('flash-up','flash-down');
+        void el.offsetWidth;
+        if (next > prev) el.classList.add('flash-up');
+        if (next < prev) el.classList.add('flash-down');
+      }
+      priceRefs.set(symbol, next);
+    }
+
+    function setChange(symbol, pct){
+      const el = document.getElementById(`change-${symbol}`);
+      const up = Number(pct) >= 0;
+      el.textContent = fmtPct(pct);
+      el.className = `coin-change ${up ? 'up' : 'down'}`;
+    }
+
+    function setVolume(symbol, vol){
+      const el = document.getElementById(`volume-${symbol}`);
+      el.textContent = '$' + fmtCompact(vol);
+    }
+
+    function createMiniChart(container, up){
+      const chart = LightweightCharts.createChart(container, {
+        width: container.clientWidth,
+        height: container.clientHeight,
+        layout: {
+          background: { color: 'transparent' },
+          textColor: 'rgba(0,0,0,0)'
+        },
+        grid: {
+          vertLines: { visible: false },
+          horzLines: { visible: false }
+        },
+        rightPriceScale: {
+          visible: false,
+          borderVisible: false,
+          scaleMargins: { top: 0.20, bottom: 0.20 }
+        },
+        leftPriceScale: {
+          visible: false,
+          borderVisible: false
+        },
+        timeScale: {
+          visible: false,
+          borderVisible: false
+        },
+        crosshair: {
+          vertLine: { visible: false },
+          horzLine: { visible: false }
+        },
+        handleScroll: false,
+        handleScale: false
+      });
+
+      const series = chart.addSeries(LightweightCharts.AreaSeries, {
+        lineWidth: 2,
+        lineColor: up ? '#22c55e' : '#ff5a6b',
+        topColor: up ? 'rgba(34,197,94,.22)' : 'rgba(255,90,107,.18)',
+        bottomColor: up ? 'rgba(34,197,94,.02)' : 'rgba(255,90,107,.02)',
+        priceLineVisible: false,
+        lastValueVisible: false,
+        crosshairMarkerVisible: false
+      });
+
+      const resize = new ResizeObserver(() => {
+        chart.applyOptions({
+          width: container.clientWidth,
+          height: container.clientHeight
+        });
+        chart.timeScale().fitContent();
+      });
+      resize.observe(container);
+
+      return { chart, series, resize };
+    }
+
+    async function renderCoin(coin){
+      const [ticker, klines] = await Promise.all([
+        getTicker(coin.symbol),
+        getKlines(coin.symbol, currentInterval, currentLimit)
+      ]);
+
+      setPrice(coin.symbol, ticker.lastPrice);
+      setChange(coin.symbol, ticker.priceChangePercent);
+      setVolume(coin.symbol, ticker.quoteVolume);
+
+      const chartEl = document.getElementById(`chart-${coin.symbol}`);
+      const up = Number(ticker.priceChangePercent) >= 0;
+
+      if (chartRefs.has(coin.symbol)) {
+        const old = chartRefs.get(coin.symbol);
+        old.resize.disconnect();
+        old.chart.remove();
+      }
+
+      const ref = createMiniChart(chartEl, up);
+
+      const data = klines.map(k => ({
+        time: Math.floor(k[0] / 1000),
+        value: Number(k[4])
+      }));
+
+      ref.series.setData(data);
+      ref.chart.timeScale().fitContent();
+
+      chartRefs.set(coin.symbol, ref);
+    }
+
+    async function initialRender(){
+      grid.innerHTML = COINS.map(cardTemplate).join('');
+      await Promise.all(COINS.map(renderCoin));
+    }
+
+    async function refreshAll(){
+      await Promise.allSettled(COINS.map(async coin => {
+        try{
+          const ticker = await getTicker(coin.symbol);
+          setPrice(coin.symbol, ticker.lastPrice);
+          setChange(coin.symbol, ticker.priceChangePercent);
+          setVolume(coin.symbol, ticker.quoteVolume);
+        }catch(e){}
+      }));
+    }
+
+    async function refreshCharts(){
+      await Promise.allSettled(COINS.map(async coin => {
+        try{
+          const klines = await getKlines(coin.symbol, currentInterval, currentLimit);
+          const ref = chartRefs.get(coin.symbol);
+          if (!ref) return;
+
+          const data = klines.map(k => ({
+            time: Math.floor(k[0] / 1000),
+            value: Number(k[4])
+          }));
+
+          ref.series.setData(data);
+          ref.chart.timeScale().fitContent();
+        }catch(e){}
+      }));
+    }
+
+    function startWebSocket(){
+      const streams = COINS.map(c => `${c.symbol.toLowerCase()}@miniTicker`).join('/');
+      const ws = new WebSocket(`${WS_BASE}?streams=${streams}`);
+
+      ws.onmessage = (event) => {
+        try{
+          const packet = JSON.parse(event.data);
+          const msg = packet.data;
+          const symbol = msg.s;
+          const close = Number(msg.c);
+
+          setPrice(symbol, close);
+
+          const ref = chartRefs.get(symbol);
+          if (ref) {
+            ref.series.update({
+              time: Math.floor(Date.now() / 1000),
+              value: close
+            });
+          }
+        }catch(err){}
+      };
+
+      ws.onclose = () => setTimeout(startWebSocket, 2500);
+      ws.onerror = () => ws.close();
+    }
+
+    document.getElementById('rangeTabs').addEventListener('click', async (e) => {
+      const btn = e.target.closest('.tab');
+      if (!btn) return;
+
+      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+      btn.classList.add('active');
+
+      currentInterval = btn.dataset.interval;
+      currentLimit = Number(btn.dataset.limit);
+
+      await Promise.all(COINS.map(renderCoin));
+    });
+
+    (async function boot(){
+      try{
+        await initialRender();
+        startWebSocket();
+        setInterval(refreshAll, 15000);
+        setInterval(refreshCharts, 60000);
+      }catch(err){
+        console.error(err);
+        grid.innerHTML = `<div class="error">Failed to load market data. If your region blocks direct Binance access, put the requests behind your own backend proxy.</div>`;
+      }
+    })();
+  </script>
+
 
 </body>
 
