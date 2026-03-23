@@ -22,3 +22,4 @@ sellBtn.addEventListener('click', () => {
 
   console.log('SELL ORDER =>', payload);
 });
+

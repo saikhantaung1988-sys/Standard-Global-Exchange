@@ -4157,83 +4157,10 @@ footer .newsletter-container form button {
 /* -------------------------------------------
    PREMIUM GLASS HEADER (ADDED BY CO-FOUNDER)
    ------------------------------------------- */
-.header {
-
-    position: fixed !important;  /* Scroll ဆွဲရင် လိုက်ဆင်းမယ် */
-
-    top: 0;
-
-    left: 0;
-
-    width: 100%;
-
-    z-index: 9999 !important;    /* အပေါ်ဆုံးမှာ အမြဲရှိနေမယ် */
-
-   
-
-    /* Glass Effect (ဖန်သားပြင် ဒီဇိုင်း) */
-    background: rgba(25, 26, 31, 0.7) !important; /* အမဲရောင် ဖောက်ထွင်း */
-
-    backdrop-filter: blur(20px) !important;       /* နောက်ခံကို ဝါးလိုက်တာ */
-
-    -webkit-backdrop-filter: blur(20px);          /* iPhone/Safari အတွက် */
-
-   
-
-    /* Premium Look Border & Shadow */
-
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* အဖြူရောင် မျဉ်းပါးပါးလေး */
-
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);          /* အရိပ်နုနုလေး */
-
-   
-
-    padding: 15px 0 !important;  /* အထူအပါး ချိန်ညှိခြင်း */
-
-    transition: all 0.3s ease-in-out;
-
-}
-
-.header-contact-icon {
-  width: 25px;
-  height: 25px;
-  opacity: 0.9;
-}
-.header .navigation {
-  padding: 0 12px;
-}
-
-.header-logo {
-  height: 26px;
-}
-
-/* Mobile Menu Button နေရာလွဲမသွားအောင် ထိန်းမယ် */
-
-.mobile-nav__toggler {
-
-    margin-top: 5px;
-
-}
-
-/* ၁။ Menu Bar ကို အပေါ်ဆုံး ဆွဲတင်မယ် */
-.mobile-nav__wrapper, 
-.side-menu__wrapper,
-.main-menu__nav {
-    z-index: 100000 !important; /* Header (9999) ထက် များအောင်ထားလိုက်တယ် */
-    top: 0; /* အပေါ်ကပ်မယ် */
-}
-
-/* ၂။ Menu Bar ထဲက Logo ကို ဖျောက်မယ် */
-.mobile-nav__logo,
-.mobile-menu__logo,
-.side-menu__logo {
-    display: none !important;
-}
-
-/* (Optional) အပေါ်က Logo ဖျောက်လိုက်လို့ နေရာလွတ်ကြီးကျန်နေရင် ကပ်ပေးမယ် */
-.mobile-nav__content {
-    padding-top: 20px !important; /* အပေါ်က အကွာအဝေးကို လျှော့လိုက်မယ် */
-}
+/* ------------------------------------------- */
+/* Header */
+/* ------------------------------------------- */
+.header { position: fixed !important; /* Scroll ဆွဲရင် လိုက်ဆင်းမယ် */ top: 0; left: 0; width: 100%; z-index: 9999 !important; /* အပေါ်ဆုံးမှာ အမြဲရှိနေမယ် */ /* Glass Effect (ဖန်သားပြင် ဒီဇိုင်း) */ background: rgba(25, 26, 31, 0.7) !important; /* အမဲရောင် ဖောက်ထွင်း */ backdrop-filter: blur(20px) !important; /* နောက်ခံကို ဝါးလိုက်တာ */ -webkit-backdrop-filter: blur(20px); /* iPhone/Safari အတွက် */ /* Premium Look Border & Shadow */ border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* အဖြူရောင် မျဉ်းပါးပါးလေး */ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); /* အရိပ်နုနုလေး */ padding: 15px 0 !important; /* အထူအပါး ချိန်ညှိခြင်း */ transition: all 0.3s ease-in-out; } .header-contact-icon { width: 27px; height: 27px; ဒီ css header code ကိုပြင်ချင်တယ် design ဘာမှမပြောင်းဘူး ပြင်ချင်တာက logo က png logo ဖြစ်တယ် ဘောင်ထဲမျာ 3 px လောက်ပဲလိုချင်တာ logo ကို bar အပြည့်နီးနီးလိုချင်တာ ဒါပေမဲ့ 27px ထက်ပိုချဲ့ရင် bar ရဲ့ အမြင့်ပါတိုးလာတာ ဘာအထဲမှာနေရာလွတ်တွေရှိနေလျက်နဲ့ မကျယ်သွားဘူး header bar app.css ကိုပြင်ဆင်ပေးပါ opacity: 0.9; } .header .navigation { padding: 0%; } .header-logo { height: 27px; }
 
 /* BINANCE STYLE VARIABLES */
 :root {
@@ -4403,7 +4330,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: #191a1f;
+  background: #1F1E25;
   font-family: Arial, sans-serif;
   color: #ffffff;
 }
@@ -4431,7 +4358,7 @@ body {
   overflow: hidden;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  background: #191a1f;
+  background:#1F1E25;
 }
 
 #tradingview-widget {
