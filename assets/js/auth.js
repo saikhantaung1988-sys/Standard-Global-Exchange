@@ -116,6 +116,6 @@ async function handleLogout() {
   if (error) {
     alert("Logout Error: " + error.message);
   } else {
-    window.location.href = 'blog-grid.html';
+    window.location.href = 'register.html';
   }
 }
