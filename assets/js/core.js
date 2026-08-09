@@ -13,5 +13,5 @@ console.log("✅ New Connection Established via core.js");
 
 async function checkAccess() {
   const { data: { session } } = await db.auth.getSession();
-  if (!session) window.location.href = 'blog-grid.html';
+  if (!session) window.location.href = 'register.html';
 }
